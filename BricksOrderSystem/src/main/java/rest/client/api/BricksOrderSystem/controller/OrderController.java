@@ -14,6 +14,11 @@ public class OrderController {
 	private List<BrickOrder> brickOrders = new ArrayList<>();
 	private AtomicLong nextId = new AtomicLong();
 
+	/** Rest Client to submit new orders for bricks
+	 * 
+	 * @param brickOrder
+	 * @return
+	 */
 	@PostMapping("/order")
 	@ResponseStatus(HttpStatus.CREATED)
 	public BrickOrder createNewOrder(@RequestBody BrickOrder brickOrder) {
@@ -23,11 +28,20 @@ public class OrderController {
 		return brickOrder;
 	}
 
+	/**  Get Orders request for all the orders and with its details
+	 * 
+	 * @return
+	 */
 	@GetMapping("/getAllOrders")
 	public List<BrickOrder> getAllOrders() {
 		return brickOrders;
 	}
 
+	/** To retrieve order for a id
+	 * 
+	 * @param orderId
+	 * @return
+	 */
 	@GetMapping("/getOrder/{id}")
 	public BrickOrder getOneOrder(@PathVariable("id") long orderId) {
 		for (BrickOrder brickOrder : brickOrders) {
@@ -39,6 +53,12 @@ public class OrderController {
 		throw new IllegalArgumentException();
 	}
 
+	/** To update an order if it is not already shipped
+	 * 
+	 * @param orderId
+	 * @param newOrder
+	 * @return
+	 */
 	@PostMapping("updateOrder/{id}")
 	public BrickOrder editOneOrder(@PathVariable("id") long orderId, @RequestBody BrickOrder newOrder) {
 		for (BrickOrder brickOrder : brickOrders) {
@@ -56,6 +76,11 @@ public class OrderController {
 		throw new IllegalArgumentException();
 	}
 
+	/** Fulfil Order request to dispatch the order
+	 * 
+	 * @param orderId
+	 * @return
+	 */
 	@PostMapping("fulfilOrder/{id}")
 	public BrickOrder fulfilOrder(@PathVariable("id") long orderId) {
 		for (BrickOrder brickOrder : brickOrders) {
