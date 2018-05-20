@@ -1,0 +1,21 @@
+#Core CURL command for BricksOrderSystem
+
+#Create  a new order	
+curl -i -H "Content-Type: application/json" -X POST -d "{       
+		\"noOfBricks\": \"688\"    
+		}" localhost:8080/order
+
+#Get All the Orders
+curl -i -H "Content-Type: application/json" -X GET localhost:8080/getAllOrders
+
+
+# Get OrderById
+curl -i -H "Content-Type: application/json" -X GET localhost:8080/getOrder/2
+
+# Update OrderById
+curl -i -H "Content-Type: application/json" -X POST -d "{       
+		\"noOfBricks\": \"687\" 
+    }" localhost:8080/updateOrder/2
+	
+# Fulfil OrderById
+curl -i -H "Content-Type: application/json" -X POST localhost:8080/fulfilOrder/2
